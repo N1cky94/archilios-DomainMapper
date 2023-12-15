@@ -8,6 +8,10 @@ import java.lang.reflect.Field;
 public class DomainMapper {
     private final MappingStrategyPattern mappingStrategy;
     
+    public DomainMapper() {
+        this(MappingStrategyPattern.LOOSELY);
+    }
+    
     public DomainMapper(MappingStrategyPattern mappingStrategy) {
         this.mappingStrategy = mappingStrategy;
     }
