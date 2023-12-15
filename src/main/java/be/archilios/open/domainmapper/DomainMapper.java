@@ -1,10 +1,24 @@
 package be.archilios.open.domainmapper;
 
+import be.archilios.open.domainmapper.config.MappingStrategyPattern;
 import be.archilios.open.domainmapper.exceptions.MappingException;
 
 import java.lang.reflect.Field;
 
 public class DomainMapper {
+    private final MappingStrategyPattern mappingStrategy;
+    
+    public DomainMapper() {
+        this(MappingStrategyPattern.LOOSELY);
+    }
+    
+    public DomainMapper(MappingStrategyPattern mappingStrategy) {
+        this.mappingStrategy = mappingStrategy;
+    }
+    
+    public MappingStrategyPattern getActiveMappingStrategy() {
+        return mappingStrategy;
+    }
     
     public <T, V> T map(V source, Class<T> targetClass) {
         try {
@@ -28,6 +42,10 @@ public class DomainMapper {
                     targetField.set(result, sourceField.get(Source));
                 }
             }
+        }
+        
+        if (getActiveMappingStrategy() == MappingStrategyPattern.STRICT) {
+            throw new MappingException("Could not map " + Source.getClass().getSimpleName() + " to " + targetClass.getSimpleName() + " because of possible missing fields");
         }
         
         return result;
