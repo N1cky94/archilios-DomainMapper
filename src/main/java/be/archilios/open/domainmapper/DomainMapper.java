@@ -1,10 +1,16 @@
 package be.archilios.open.domainmapper;
 
+import be.archilios.open.domainmapper.config.MappingStrategyPattern;
 import be.archilios.open.domainmapper.exceptions.MappingException;
 
 import java.lang.reflect.Field;
 
 public class DomainMapper {
+    private final MappingStrategyPattern mappingStrategy;
+    
+    public DomainMapper(MappingStrategyPattern mappingStrategy) {
+        this.mappingStrategy = mappingStrategy;
+    }
     
     public <T, V> T map(V source, Class<T> targetClass) {
         try {
