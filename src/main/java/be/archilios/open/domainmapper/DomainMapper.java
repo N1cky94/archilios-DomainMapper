@@ -44,6 +44,10 @@ public class DomainMapper {
             }
         }
         
+        if (getActiveMappingStrategy() == MappingStrategyPattern.STRICT) {
+            throw new MappingException("Could not map " + Source.getClass().getSimpleName() + " to " + targetClass.getSimpleName() + " because of possible missing fields");
+        }
+        
         return result;
     }
 
