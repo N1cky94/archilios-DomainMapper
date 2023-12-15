@@ -1,5 +1,6 @@
 package be.archilios.open.domainmapper;
 
+import be.archilios.open.domainmapper.config.MappingStrategyPattern;
 import be.archilios.open.domainmapper.data.PrimitiveOnlyData;
 import be.archilios.open.domainmapper.data.PrimitiveOnlyDataReceiver;
 import org.junit.jupiter.api.Test;
