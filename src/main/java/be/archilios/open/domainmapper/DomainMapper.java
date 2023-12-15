@@ -3,8 +3,6 @@ package be.archilios.open.domainmapper;
 import be.archilios.open.domainmapper.exceptions.MappingException;
 
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class DomainMapper {
     
