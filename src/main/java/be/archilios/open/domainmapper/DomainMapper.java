@@ -17,13 +17,6 @@ public class DomainMapper {
     }
     
     private <T, V> T tryMap(V Source, Class<T> targetClass) throws Exception {
-        //todo: map the source to the target untill the tests succeed
-        //   1. [X] Get a returnable result
-        //   2. [X] Get the fields of the source
-        //   3. [X] Get the fields of the target
-        //   4. [X] Loop over the source fields and check which ones are present with the same name in the target
-        //   5. [X] For all fields that can be found in both, copy the value from the source to the target
-        
         T result = targetClass.getDeclaredConstructor().newInstance();
         
         Field[] sourceFields = Source.getClass().getDeclaredFields();
