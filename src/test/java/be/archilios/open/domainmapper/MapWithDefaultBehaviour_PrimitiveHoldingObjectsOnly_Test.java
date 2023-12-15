@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     private final DomainMapper domainMapper = new DomainMapper();
-    private final PrimitiveOnlyData source = PrimitiveOnlyDataMother.data().build();;
+    private final PrimitiveOnlyData source = PrimitiveOnlyDataMother.data().build();
     private final PrimitiveOnlyDataReceiver doubleBlindSource = new PrimitiveOnlyDataReceiver();
     
     @BeforeEach
