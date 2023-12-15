@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MapPrimitiveToPrimitivePojoTest {
+class MapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     private final DomainMapper domainMapper = new DomainMapper();
     private final PrimitiveDataPojo pojoToBeMapped = new PrimitiveDataPojo();
     private final ReceivingPrimitiveDataPojo pojoToBeMappedReturn = new ReceivingPrimitiveDataPojo();
