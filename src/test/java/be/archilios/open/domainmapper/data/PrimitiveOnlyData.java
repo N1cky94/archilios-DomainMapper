@@ -1,12 +1,12 @@
 package be.archilios.open.domainmapper.data;
 
-public class PrimitiveDataPojo {
+public class PrimitiveOnlyData {
     private String name;
     private int age;
     private boolean isAdult;
     private double height;
     
-    public PrimitiveDataPojo() {
+    public PrimitiveOnlyData() {
     }
     
     public String getName() {
@@ -46,7 +46,7 @@ public class PrimitiveDataPojo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         
-        PrimitiveDataPojo that = (PrimitiveDataPojo) o;
+        PrimitiveOnlyData that = (PrimitiveOnlyData) o;
         
         if (getAge() != that.getAge()) return false;
         if (isAdult() != that.isAdult()) return false;
