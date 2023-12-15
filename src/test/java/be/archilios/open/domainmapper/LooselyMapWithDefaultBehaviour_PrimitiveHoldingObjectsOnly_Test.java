@@ -2,6 +2,7 @@ package be.archilios.open.domainmapper;
 
 import be.archilios.open.domainmapper.config.MappingStrategyPattern;
 import be.archilios.open.domainmapper.data.PrimitiveOnlyData;
+import be.archilios.open.domainmapper.data.PrimitiveOnlyDataMother;
 import be.archilios.open.domainmapper.data.PrimitiveOnlyDataReceiver;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +13,8 @@ public class LooselyMapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     @Test
     void looselyMapPrimitiveHoldingObjectsOnly() {
         // Arrange
-        PrimitiveOnlyData source = new PrimitiveOnlyData();
-        source.setName("John Doe");
-        source.setAge(42);
-        source.setAdult(true);
-        source.setHeight(1.83);
+        PrimitiveOnlyData source = PrimitiveOnlyDataMother.data()
+                .build();
         
         DomainMapper mapper = new DomainMapper(MappingStrategyPattern.LOOSELY);
         
