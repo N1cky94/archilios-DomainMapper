@@ -16,6 +16,10 @@ public class DomainMapper {
         this.mappingStrategy = mappingStrategy;
     }
     
+    public MappingStrategyPattern getActiveMappingStrategy() {
+        return mappingStrategy;
+    }
+    
     public <T, V> T map(V source, Class<T> targetClass) {
         try {
             return tryMap(source, targetClass);
