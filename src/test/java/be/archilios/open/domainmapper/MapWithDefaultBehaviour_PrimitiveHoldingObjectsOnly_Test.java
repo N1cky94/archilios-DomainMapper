@@ -1,7 +1,7 @@
 package be.archilios.open.domainmapper;
 
 import be.archilios.open.domainmapper.data.PrimitiveOnlyData;
-import be.archilios.open.domainmapper.data.ReceivingPrimitiveDataPojo;
+import be.archilios.open.domainmapper.data.PrimitiveOnlyDataReceiver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     private final DomainMapper domainMapper = new DomainMapper();
     private final PrimitiveOnlyData pojoToBeMapped = new PrimitiveOnlyData();
-    private final ReceivingPrimitiveDataPojo pojoToBeMappedReturn = new ReceivingPrimitiveDataPojo();
+    private final PrimitiveOnlyDataReceiver pojoToBeMappedReturn = new PrimitiveOnlyDataReceiver();
     
     @BeforeEach
     void setUp() {
@@ -29,7 +29,7 @@ class MapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     @Test
     void mapPrimitivePojoIntoOtherPrimitivePojoWithOverlappingFields() {
         // Act
-        ReceivingPrimitiveDataPojo result = domainMapper.map(pojoToBeMapped, ReceivingPrimitiveDataPojo.class);
+        PrimitiveOnlyDataReceiver result = domainMapper.map(pojoToBeMapped, PrimitiveOnlyDataReceiver.class);
         
         // Assert
         assertEquals(pojoToBeMapped.getName(), result.getName(), "Name should be mapped");

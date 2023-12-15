@@ -1,12 +1,12 @@
 package be.archilios.open.domainmapper.data;
 
-public class ReceivingPrimitiveDataPojo {
+public class PrimitiveOnlyDataReceiver {
     private long id;
     private String name;
     private int age;
     private boolean isAdult;
     
-    public ReceivingPrimitiveDataPojo() {
+    public PrimitiveOnlyDataReceiver() {
     }
     
     public long getId() {
@@ -46,7 +46,7 @@ public class ReceivingPrimitiveDataPojo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         
-        ReceivingPrimitiveDataPojo that = (ReceivingPrimitiveDataPojo) o;
+        PrimitiveOnlyDataReceiver that = (PrimitiveOnlyDataReceiver) o;
         
         if (getId() != that.getId()) return false;
         if (getAge() != that.getAge()) return false;
