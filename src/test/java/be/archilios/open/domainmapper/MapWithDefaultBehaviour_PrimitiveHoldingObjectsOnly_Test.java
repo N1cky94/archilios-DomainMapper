@@ -27,7 +27,7 @@ class MapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     
     
     @Test
-    void mapPrimitivePojoIntoOtherPrimitivePojoWithOverlappingFields() {
+    void mapPrimitiveHoldingObjectsOnly() {
         // Act
         PrimitiveOnlyDataReceiver result = domainMapper.map(pojoToBeMapped, PrimitiveOnlyDataReceiver.class);
         
@@ -39,7 +39,7 @@ class MapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
     }
     
     @Test
-    void mapPrimitivePojoIntoOtherPrimitivePojoWithOverlappingFieldsDoubleBlind() {
+    void reverseMapPrimitiveHoldingObjectsOnly() {
         // Act
         PrimitiveOnlyData result = domainMapper.map(pojoToBeMappedReturn, PrimitiveOnlyData.class);
         
