@@ -1,9 +1,11 @@
 package be.archilios.open.domainmapper.strategies;
 
 import be.archilios.open.domainmapper.config.MappingStrategyPattern;
+import be.archilios.open.domainmapper.data.PrimitiveOnlyData;
+import be.archilios.open.domainmapper.exceptions.MappingException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EmptyFieldStrategyTest {
     
@@ -17,6 +19,27 @@ public class EmptyFieldStrategyTest {
         assertEquals(0.0, pattern.handleEmptyField(double.class), "Should map to default value of double");
         assertEquals(false, pattern.handleEmptyField(boolean.class), "Should map to default value of boolean");
         assertEquals('\u0000', pattern.handleEmptyField(char.class), "Should map to default value of char");
+    }
+    
+    @Test
+    void looseEmptyFieldStrategyMapsToNull() {
+        MappingStrategyPattern pattern = MappingStrategyPattern.LOOSELY;
+        
+        assertNull(pattern.handleEmptyField(String.class), "Should map to null");
+    }
+    
+    @Test
+    void defaultEmptyFieldStrategyThrowsExceptionWhenFieldHasNoDefault() {
+        MappingStrategyPattern pattern = MappingStrategyPattern.DEFAULT;
+        
+        assertThrows(MappingException.class, () -> pattern.handleEmptyField(String.class), "Should throw exeption when field has no default value defined");
+    }
+    
+    @Test
+    void defaultStrategyMapsToObjectDefault() {
+        MappingStrategyPattern pattern = MappingStrategyPattern.DEFAULT;
+        
+        assertThrows(MappingException.class, () -> pattern.handleEmptyField(PrimitiveOnlyData.class), "Should be implemented later, is not a feature but a bug");
     }
     
 }
