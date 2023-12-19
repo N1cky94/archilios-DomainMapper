@@ -20,8 +20,10 @@ public sealed interface EmptyFieldStrategy {
                     case "double" -> (T) Double.valueOf("0");
                     default -> throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
                 };
+                EmptyFieldStrategy looseStrategy = new EmptyFieldLooseStrategy();
+                return looseStrategy.handle(clazz);
             }
-            return null;
+            throw new MappingException("Mapping not allowed because no default is know for empty field of type " + clazz.getSimpleName() + ", strategy DEFAULT requires default value to be declared when empty");
         }
     }
     
