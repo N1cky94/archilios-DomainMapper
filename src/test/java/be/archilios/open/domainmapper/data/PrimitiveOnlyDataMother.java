@@ -51,7 +51,7 @@ public class PrimitiveOnlyDataMother {
         }
         
         public PrimitiveOnlyRecord buildRecord() {
-            return new PrimitiveOnlyRecord(1, name, age, isAdult);
+            return new PrimitiveOnlyRecord(id, name, age, isAdult);
         }
     }
     
