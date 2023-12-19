@@ -20,6 +20,10 @@ public class DomainMapper {
         return mappingStrategy;
     }
     
+    // todo: Depending on the strategy we should us a HandleEmptyFieldInDestination classes,
+    //  that implement the different behaviours of the strategies (One for every strategy) > StrategyPattern
+    //  SEALED CLASSES!!!!!!
+    
     public <T, V> T map(V source, Class<T> targetClass) {
         try {
             return tryMap(source, targetClass);
