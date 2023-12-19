@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class StrictlyMapWithDefaultBehaviour_PrimitiveHoldingObjectsOnly_Test {
+public class MapWithStrictStrategyTest {
     
     @Test
-    void strictlyMapPrimitiveHoldingObjectsOnly() {
+    void primitiveObjectToPrimitiveObject() {
         // Arrange
         PrimitiveOnlyData source = PrimitiveOnlyDataMother.data().build();
         DomainMapper mapper = new DomainMapper(MappingStrategyPattern.STRICT);
