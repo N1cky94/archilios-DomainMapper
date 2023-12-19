@@ -32,7 +32,7 @@ public class EmptyFieldStrategyTest {
     void defaultStrategyThrowsExceptionWhenFieldHasNoProvidedDefaultValue() {
         MappingStrategyPattern pattern = MappingStrategyPattern.DEFAULT;
         
-        assertThrows(MappingException.class, () -> pattern.handleEmptyField(String.class), "Should throw exeption when field has no default value defined");
+        assertThrows(MappingException.class, () -> pattern.handleEmptyField(String.class), "Should throw exception when field has no default value defined");
     }
     
     @Test
@@ -40,6 +40,15 @@ public class EmptyFieldStrategyTest {
         MappingStrategyPattern pattern = MappingStrategyPattern.DEFAULT;
         
         assertThrows(MappingException.class, () -> pattern.handleEmptyField(PrimitiveOnlyData.class), "Should be implemented later, is not a feature but a bug");
+    }
+    
+    @Test
+    void strictStrategyThrowsException() {
+        MappingStrategyPattern pattern = MappingStrategyPattern.STRICT;
+        
+        assertThrows(MappingException.class, () -> pattern.handleEmptyField(int.class), "Should throw exception when field is empty in STRICT Mode");
+        assertThrows(MappingException.class, () -> pattern.handleEmptyField(String.class), "Should throw exception when field is empty in STRICT Mode");
+        assertThrows(MappingException.class, () -> pattern.handleEmptyField(PrimitiveOnlyData.class), "Should throw exception when field is empty in STRICT Mode");
     }
     
 }
