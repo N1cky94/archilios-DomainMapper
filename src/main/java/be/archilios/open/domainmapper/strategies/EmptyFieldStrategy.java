@@ -10,16 +10,6 @@ public sealed interface EmptyFieldStrategy {
         @Override
         public <T> T handle(Class<T> clazz) {
             if (clazz.isPrimitive()) {
-                return switch (clazz.getSimpleName()) {
-                    case "boolean" -> (T) Boolean.FALSE;
-                    case "byte" -> (T) Byte.valueOf("0");
-                    case "short" -> (T) Short.valueOf("0");
-                    case "int" -> (T) Integer.valueOf("0");
-                    case "long" -> (T) Long.valueOf("0");
-                    case "float" -> (T) Float.valueOf("0");
-                    case "double" -> (T) Double.valueOf("0");
-                    default -> throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
-                };
                 EmptyFieldStrategy looseStrategy = new EmptyFieldLooseStrategy();
                 return looseStrategy.handle(clazz);
             }
@@ -39,6 +29,7 @@ public sealed interface EmptyFieldStrategy {
                     case "long" -> (T) Long.valueOf("0");
                     case "float" -> (T) Float.valueOf("0");
                     case "double" -> (T) Double.valueOf("0");
+                    case "char" -> (T) Character.valueOf('\u0000');
                     default -> throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
                 };
             }
