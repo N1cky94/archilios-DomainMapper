@@ -40,29 +40,29 @@ public class DomainMapper {
         }
     }
     
-    private <T, V> T tryMap(V Source, Class<T> targetClass) throws Exception {
+    private <T, V> T tryMap(V source, Class<T> targetClass) throws Exception {
         T result = targetClass.getDeclaredConstructor().newInstance();
         
-        Field[] sourceFields = Source.getClass().getDeclaredFields();
+        Field[] sourceFields = source.getClass().getDeclaredFields();
         Field[] targetFields = targetClass.getDeclaredFields();
         
-        mapFields(Source, sourceFields, targetFields, result);
+        mapFields(source, sourceFields, targetFields, result);
         handleEmptyFields(targetFields, result);
         
         if (getActiveMappingStrategy() == MappingStrategyPattern.STRICT) {
-            throw new MappingException("Could not map " + Source.getClass().getSimpleName() + " to " + targetClass.getSimpleName() + " because of possible missing fields");
+            throw new MappingException("Could not map " + source.getClass().getSimpleName() + " to " + targetClass.getSimpleName() + " because of possible missing fields");
         }
         
         return result;
     }
     
-    private static <T, V> void mapFields(V Source, Field[] sourceFields, Field[] targetFields, T result) throws IllegalAccessException {
+    private static <T, V> void mapFields(V source, Field[] sourceFields, Field[] targetFields, T result) throws IllegalAccessException {
         for (Field sourceField : sourceFields) {
             for (Field targetField : targetFields) {
                 if (sourceField.getName().equals(targetField.getName())) {
                     sourceField.setAccessible(true);
                     targetField.setAccessible(true);
-                    targetField.set(result, sourceField.get(Source));
+                    targetField.set(result, sourceField.get(source));
                 }
             }
         }
