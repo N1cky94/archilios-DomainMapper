@@ -35,7 +35,7 @@ public class MapWithLooseStrategyTest {
         // Arrange
         DomainMapper mapper = new DomainMapper(MappingStrategyPattern.LOOSELY);
         
-        PrimitiveOnlyRecord source = new PrimitiveOnlyRecord(1, "Nick Bau", 32, true);
+        PrimitiveOnlyRecord source = PrimitiveOnlyDataMother.data().buildRecord();
         PrimitiveOnlyData destination;
         
         // Act
