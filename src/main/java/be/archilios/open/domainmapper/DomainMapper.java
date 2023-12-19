@@ -2,13 +2,11 @@ package be.archilios.open.domainmapper;
 
 import be.archilios.open.domainmapper.config.MappingStrategyPattern;
 import be.archilios.open.domainmapper.exceptions.MappingException;
-import be.archilios.open.domainmapper.strategies.EmptyFieldStrategy;
 
 import java.lang.reflect.Field;
 
 public class DomainMapper {
     private final MappingStrategyPattern mappingStrategy;
-    private EmptyFieldStrategy emptyFieldStrategy;
     
     public DomainMapper() {
         this(MappingStrategyPattern.LOOSELY);
@@ -16,16 +14,6 @@ public class DomainMapper {
     
     public DomainMapper(MappingStrategyPattern mappingStrategy) {
         this.mappingStrategy = mappingStrategy;
-        
-        configureEmptyFieldStrategy();
-    }
-    
-    private void configureEmptyFieldStrategy() {
-        switch (mappingStrategy) {
-            case LOOSELY -> emptyFieldStrategy = new EmptyFieldStrategy.EmptyFieldLooseStrategy();
-            case STRICT -> emptyFieldStrategy = new EmptyFieldStrategy.EmptyFieldStrictStrategy();
-            case DEFAULT -> emptyFieldStrategy = new EmptyFieldStrategy.EmptyFieldDefaultStrategy();
-        }
     }
     
     public MappingStrategyPattern getActiveMappingStrategy() {
@@ -72,7 +60,7 @@ public class DomainMapper {
         for (Field targetField : targetFields) {
             if (!targetField.canAccess(result)) {
                 targetField.setAccessible(true);
-                targetField.set(result, emptyFieldStrategy.handle(targetField.getType()));
+                targetField.set(result, mappingStrategy.handleEmptyField(targetField.getType()));
             }
         }
     }
