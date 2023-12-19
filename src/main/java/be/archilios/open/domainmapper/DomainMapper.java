@@ -2,11 +2,13 @@ package be.archilios.open.domainmapper;
 
 import be.archilios.open.domainmapper.config.MappingStrategyPattern;
 import be.archilios.open.domainmapper.exceptions.MappingException;
+import be.archilios.open.domainmapper.strategies.EmptyFieldStrategy;
 
 import java.lang.reflect.Field;
 
 public class DomainMapper {
     private final MappingStrategyPattern mappingStrategy;
+    private EmptyFieldStrategy emptyFieldStrategy;
     
     public DomainMapper() {
         this(MappingStrategyPattern.LOOSELY);
@@ -14,15 +16,21 @@ public class DomainMapper {
     
     public DomainMapper(MappingStrategyPattern mappingStrategy) {
         this.mappingStrategy = mappingStrategy;
+        
+        configureEmptyFieldStrategy();
+    }
+    
+    private void configureEmptyFieldStrategy() {
+        switch (mappingStrategy) {
+            case LOOSELY -> emptyFieldStrategy = new EmptyFieldStrategy.EmptyFieldLooseStrategy();
+            case STRICT -> emptyFieldStrategy = new EmptyFieldStrategy.EmptyFieldStrictStrategy();
+            case DEFAULT -> emptyFieldStrategy = new EmptyFieldStrategy.EmptyFieldDefaultStrategy();
+        }
     }
     
     public MappingStrategyPattern getActiveMappingStrategy() {
         return mappingStrategy;
     }
-    
-    // todo: Depending on the strategy we should us a HandleEmptyFieldInDestination classes,
-    //  that implement the different behaviours of the strategies (One for every strategy) > StrategyPattern
-    //  SEALED CLASSES!!!!!!
     
     public <T, V> T map(V source, Class<T> targetClass) {
         try {
@@ -38,6 +46,17 @@ public class DomainMapper {
         Field[] sourceFields = Source.getClass().getDeclaredFields();
         Field[] targetFields = targetClass.getDeclaredFields();
         
+        mapFields(Source, sourceFields, targetFields, result);
+        handleEmptyFields(targetFields, result);
+        
+        if (getActiveMappingStrategy() == MappingStrategyPattern.STRICT) {
+            throw new MappingException("Could not map " + Source.getClass().getSimpleName() + " to " + targetClass.getSimpleName() + " because of possible missing fields");
+        }
+        
+        return result;
+    }
+    
+    private static <T, V> void mapFields(V Source, Field[] sourceFields, Field[] targetFields, T result) throws IllegalAccessException {
         for (Field sourceField : sourceFields) {
             for (Field targetField : targetFields) {
                 if (sourceField.getName().equals(targetField.getName())) {
@@ -47,12 +66,15 @@ public class DomainMapper {
                 }
             }
         }
-        
-        if (getActiveMappingStrategy() == MappingStrategyPattern.STRICT) {
-            throw new MappingException("Could not map " + Source.getClass().getSimpleName() + " to " + targetClass.getSimpleName() + " because of possible missing fields");
-        }
-        
-        return result;
     }
-
+    
+    private <T> void handleEmptyFields(Field[] targetFields, T result) throws IllegalAccessException {
+        for (Field targetField : targetFields) {
+            if (!targetField.canAccess(result)) {
+                targetField.setAccessible(true);
+                targetField.set(result, emptyFieldStrategy.handle(targetField.getType()));
+            }
+        }
+    }
+    
 }
