@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EmptyFieldStrategyTest {
     
     @Test
-    void looseEmptyFieldStrategyMapsToPrimitiveDefault() {
+    void looseStrategyMapsToPrimitiveDefault() {
         MappingStrategyPattern pattern = MappingStrategyPattern.LOOSELY;
         
         assertEquals(0, pattern.handleEmptyField(int.class), "Should map to default value of integer");
@@ -22,21 +22,21 @@ public class EmptyFieldStrategyTest {
     }
     
     @Test
-    void looseEmptyFieldStrategyMapsToNull() {
+    void looseStrategyMapsToNull() {
         MappingStrategyPattern pattern = MappingStrategyPattern.LOOSELY;
         
         assertNull(pattern.handleEmptyField(String.class), "Should map to null");
     }
     
     @Test
-    void defaultEmptyFieldStrategyThrowsExceptionWhenFieldHasNoDefault() {
+    void defaultStrategyThrowsExceptionWhenFieldHasNoProvidedDefaultValue() {
         MappingStrategyPattern pattern = MappingStrategyPattern.DEFAULT;
         
         assertThrows(MappingException.class, () -> pattern.handleEmptyField(String.class), "Should throw exeption when field has no default value defined");
     }
     
     @Test
-    void defaultStrategyMapsToObjectDefault() {
+    void defaultStrategyMapsToObjectsProvidedDefaultValue() {
         MappingStrategyPattern pattern = MappingStrategyPattern.DEFAULT;
         
         assertThrows(MappingException.class, () -> pattern.handleEmptyField(PrimitiveOnlyData.class), "Should be implemented later, is not a feature but a bug");
