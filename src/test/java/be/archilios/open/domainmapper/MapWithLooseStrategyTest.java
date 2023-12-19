@@ -16,7 +16,7 @@ public class MapWithLooseStrategyTest {
     void primitiveObjectToPrimitiveObject() {
         // Arrange
         PrimitiveOnlyData source = PrimitiveOnlyDataMother.data()
-                .build();
+                .buildObject();
         
         DomainMapper mapper = new DomainMapper(MappingStrategyPattern.LOOSELY);
         
@@ -52,7 +52,7 @@ public class MapWithLooseStrategyTest {
     void primitiveObjectToPrimitiveRecord() {
         // Arrange
         DomainMapper mapper = new DomainMapper(MappingStrategyPattern.LOOSELY);
-        PrimitiveOnlyData source = PrimitiveOnlyDataMother.data().build();
+        PrimitiveOnlyData source = PrimitiveOnlyDataMother.data().buildObject();
         
         assertThrows(MappingException.class, () -> mapper.map(source, PrimitiveOnlyRecord.class));
     }
