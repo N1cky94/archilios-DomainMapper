@@ -11,9 +11,15 @@ public class PrimitiveOnlyDataMother {
     
     public static class Builder {
         private String name = "John Doe";
+        private Long id = 1L;
         private int age = 42;
         private boolean isAdult = true;
         private double height = 1.83;
+        
+        public Builder withId(long id) {
+            this.id = id;
+            return this;
+        }
         
         public Builder withName(String name) {
             this.name = name;
@@ -35,13 +41,17 @@ public class PrimitiveOnlyDataMother {
             return this;
         }
         
-        public PrimitiveOnlyData build() {
+        public PrimitiveOnlyData buildObject() {
             PrimitiveOnlyData result = new PrimitiveOnlyData();
             result.setName(name);
             result.setAge(age);
             result.setAdult(isAdult);
             result.setHeight(height);
             return result;
+        }
+        
+        public PrimitiveOnlyRecord buildRecord() {
+            return new PrimitiveOnlyRecord(id, name, age, isAdult);
         }
     }
     
