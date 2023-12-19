@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConfigureMappingStrategies_Test {
+public class ConfigureMappingStrategiesTest {
     
     @Test
     void DefaultsToLooseStrategy() {
